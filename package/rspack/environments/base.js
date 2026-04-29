@@ -4,12 +4,13 @@
 const { existsSync, readdirSync } = require("fs")
 const { basename, dirname, join, relative, resolve } = require("path")
 const extname = require("path-complete-extname")
+// Use rspack-manifest-plugin for rspack compatibility
 const { RspackManifestPlugin } = require("rspack-manifest-plugin")
-const rspack = require("@rspack/core")
+const { rspack } = require("@rspack/core")
 const rules = require("../rules")
-const config = require("../config")
-const { isProduction } = require("../env")
-const { moduleExists } = require("../utils/helpers")
+const config = require("../../config")
+const { isProduction } = require("../../env")
+const { moduleExists } = require("../../utils/helpers")
 
 const getFilesInDirectory = (dir, includeNested) => {
   if (!existsSync(dir)) {
@@ -35,7 +36,7 @@ const getEntryObject = () => {
   if (config.source_entry_path === "/" && config.nested_entries) {
     throw new Error(
       "Your shakapacker config specified using a source_entry_path of '/' with 'nested_entries' == " +
-      "'true'. Doing this would result in packs for every one of your source files"
+        "'true'. Doing this would result in packs for every one of your source files"
     )
   }
 
